@@ -14,6 +14,7 @@ namespace UnityEngine.UI
     {
         static Dictionary<Font, HashSet<Text>> m_Tracked = new Dictionary<Font, HashSet<Text>>();
 
+        public static Action<Text> onTrackText;
         /// <summary>
         /// Register a Text element for receiving texture atlas rebuild calls.
         /// </summary>
@@ -22,7 +23,7 @@ namespace UnityEngine.UI
         {
             if (t.font == null)
                 return;
-
+            onTrackText?.Invoke(t);
             HashSet<Text> exists;
             m_Tracked.TryGetValue(t.font, out exists);
             if (exists == null)
